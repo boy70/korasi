@@ -1,7 +1,7 @@
 import { getServerSession } from "next-auth/next"
 import { redirect } from "next/navigation"
-import { query } from "@/lib/db"
-import AdminPanel from "@/components/AdminPanel"
+import { query } from "/lib/db"
+import AdminPanel from "/components/AdminPanel"
 import { authOptions } from "../api/auth/[...nextauth]/route"
 
 export default async function AdminPage() {

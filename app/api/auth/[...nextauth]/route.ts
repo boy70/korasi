@@ -14,20 +14,20 @@ export const authOptions: NextAuthOptions = {
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) {
-          return null
+          throw new Error("Email and password are required")
         }
 
-        const users = (await query("SELECT * FROM users WHERE email = ?", [credentials.email])) as any[]
+        const users = await query("SELECT * FROM users WHERE email = ?", [credentials.email]) as any[]
 
         if (users.length === 0) {
-          return null
+          throw new Error("No user found with this email")
         }
 
         const user = users[0]
         const isPasswordValid = await bcrypt.compare(credentials.password, user.password)
 
         if (!isPasswordValid) {
-          return null
+          throw new Error("Invalid password")
         }
 
         return {
@@ -48,7 +48,7 @@ export const authOptions: NextAuthOptions = {
     },
     async session({ session, token }) {
       if (session.user) {
-        ;(session.user as any).isAdmin = token.isAdmin
+        (session.user as any).isAdmin = token.isAdmin
       }
       return session
     },
@@ -56,9 +56,9 @@ export const authOptions: NextAuthOptions = {
   pages: {
     signIn: "/signin",
   },
+  secret: process.env.NEXTAUTH_SECRET,
 }
 
 const handler = NextAuth(authOptions)
 
 export { handler as GET, handler as POST }
-

@@ -10,7 +10,7 @@ type FormData = {
   name: string
   surname: string
   dob: string
-  idNumber: string
+  idNumber:string[]
   issueDateAndPlace: string
   address: string
   educationLevel: string
@@ -50,6 +50,7 @@ type FormData = {
   expenses: number[]
 }
 
+// FormField component to display individual fields
 const FormField = ({
   label,
   value,
@@ -69,6 +70,7 @@ export default function ViewForm({ submission }: { submission: FormData }) {
   const [fundingTotal, setFundingTotal] = useState<number>(0)
   const [expensesTotal, setExpensesTotal] = useState<number>(0)
 
+  // Calculate totals for funding and expenses
   useEffect(() => {
     const fundingSum = formData.funding.reduce((sum, value) => sum + (Number(value) || 0), 0)
     const expensesSum = formData.expenses.reduce((sum, value) => sum + (Number(value) || 0), 0)
@@ -76,6 +78,7 @@ export default function ViewForm({ submission }: { submission: FormData }) {
     setExpensesTotal(expensesSum)
   }, [formData.funding, formData.expenses])
 
+  // Generate PDF function
   const generatePDF = () => {
     const doc = new jsPDF()
     doc.setFont("helvetica", "normal", "normal")
@@ -85,6 +88,7 @@ export default function ViewForm({ submission }: { submission: FormData }) {
     doc.setFontSize(12)
     let yPos = 40
 
+    // Helper function to add a field to the PDF
     const addField = (label: string, value: string) => {
       doc.setFontSize(10)
       doc.setTextColor(100)
@@ -99,44 +103,46 @@ export default function ViewForm({ submission }: { submission: FormData }) {
       }
     }
 
-    addField("الاسم", formData.name)
-    addField("اللقب", formData.surname)
-    addField("تاريخ الميلاد", formData.dob)
-    addField("رقم البطاقة الوطنية", formData.idNumber)
-    addField("تاريخ ومكان الإصدار", formData.issueDateAndPlace)
-    addField("العنوان الشخصي", formData.address)
-    addField("المستوى التعليمي", formData.educationLevel)
-    addField("آخر شهادة متحصل عليها", formData.latestDegree)
-    addField("الأقدمية في النشاط", formData.experience)
-    addField("المؤسسة الشبابية الخاصة", formData.activitySpaces.join(", "))
-    addField("عدد الغرف", formData.roomCount)
-    addField("عدد القاعات", formData.hallCount)
-    addField("طاقة الاستيعاب (بالمبيت)", formData.capacity.accommodation)
-    addField("طاقة الاستيعاب (تحت الخيام)", formData.capacity.tents)
-    addField("طاقة الاستيعاب (بفضائات التنشيط)", formData.capacity.activitySpaces)
-    addField("الخدمات", formData.services.join(", "))
-    addField("طبيعة المشروع", formData.projectNature)
-    addField("عدد مواطن الشغل", formData.placecount)
-    addField("اسم مدير المؤسسة", formData.directorName)
-    addField("رقم بطاقة مدير المؤسسة", formData.directorId)
-    addField("الشهادة الأخيرة لمدير المؤسسة", formData.directorCertification)
-    addField("الاستثمار في هذا النشاط", formData.investmentType.join(", "))
-    addField("معلومات عن المستثمر", formData.investorInfo)
-    addField("الاسم التجاري", formData.commercialName)
-    addField("عنوان المقر الاجتماعي", formData.socialAddress)
-    addField("الولاية", formData.state)
-    addField("المعتمدية", formData.district)
-    addField("البلدية", formData.municipality)
-    addField("الرمز البريدي", formData.postalCode)
-    addField("طبيعة أنشطة تنظيم الرحلات خارج الولاية", formData.activitiesNature)
-    addField("الاستثمار في أنشطة الشباب والطفولة", formData.investmentNature.join(", "))
-    addField("طبيعة أنشطة الشباب والطفولة", formData.activityNature.join(", "))
-    addField("اسم مشروع أنشطة الشباب والطفولة", formData.projectName)
-    addField("عنوان مشروع أنشطة الشباب والطفولة", formData.projectAddress)
-    addField("البريد الإلكتروني", formData.email)
+    // Add all fields to the PDF
+    addField("الاسم", formData.name || "—")
+    addField("اللقب", formData.surname || "—")
+    addField("تاريخ الميلاد", formData.dob || "—")
+    //addField("رقم البطاقة الوطنية
+    addField("تاريخ ومكان الإصدار", formData.issueDateAndPlace || "—")
+    addField("العنوان الشخصي", formData.address || "—")
+    addField("المستوى التعليمي", formData.educationLevel || "—")
+    addField("آخر شهادة متحصل عليها", formData.latestDegree || "—")
+    addField("الأقدمية في النشاط", formData.experience || "—")
+    addField("المؤسسة الشبابية الخاصة", formData.activitySpaces.join(", ") || "—")
+    addField("عدد الغرف", formData.roomCount || "—")
+    addField("عدد القاعات", formData.hallCount || "—")
+    addField("طاقة الاستيعاب (بالمبيت)", formData.capacity.accommodation || "—")
+    addField("طاقة الاستيعاب (تحت الخيام)", formData.capacity.tents || "—")
+    addField("طاقة الاستيعاب (بفضائات التنشيط)", formData.capacity.activitySpaces || "—")
+    addField("الخدمات", formData.services.join(", ") || "—")
+    addField("طبيعة المشروع", formData.projectNature || "—")
+    addField("عدد مواطن الشغل", formData.placecount || "—")
+    addField("اسم مدير المؤسسة", formData.directorName || "—")
+    addField("رقم بطاقة مدير المؤسسة", formData.directorId || "—")
+    addField("الشهادة الأخيرة لمدير المؤسسة", formData.directorCertification || "—")
+    addField("الاستثمار في هذا النشاط", formData.investmentType.join(", ") || "—")
+    addField("معلومات عن المستثمر", formData.investorInfo || "—")
+    addField("الاسم التجاري", formData.commercialName || "—")
+    addField("عنوان المقر الاجتماعي", formData.socialAddress || "—")
+    addField("الولاية", formData.state || "—")
+    addField("المعتمدية", formData.district || "—")
+    addField("البلدية", formData.municipality || "—")
+    addField("الرمز البريدي", formData.postalCode || "—")
+    addField("طبيعة أنشطة تنظيم الرحلات خارج الولاية", formData.activitiesNature || "—")
+    addField("الاستثمار في أنشطة الشباب والطفولة", formData.investmentNature.join(", ") || "—")
+    addField("طبيعة أنشطة الشباب والطفولة", formData.activityNature.join(", ") || "—")
+    addField("اسم مشروع أنشطة الشباب والطفولة", formData.projectName || "—")
+    addField("عنوان مشروع أنشطة الشباب والطفولة", formData.projectAddress || "—")
+    addField("البريد الإلكتروني", formData.email || "—")
     addField("الإقرار بصحة البيانات", formData.declaration ? "نعم" : "لا")
-    addField("تاريخ التوقيع", formData.signatureDate)
+    addField("تاريخ التوقيع", formData.signatureDate || "—")
 
+    // Add financial information to the PDF
     doc.addPage()
     yPos = 20
     doc.setFontSize(14)
@@ -163,6 +169,7 @@ export default function ViewForm({ submission }: { submission: FormData }) {
     doc.text(`المجموع (التمويل): ${fundingTotal}`, 200, yPos, { align: "right" })
     doc.text(`المجموع (المصاريف): ${expensesTotal}`, 100, yPos, { align: "right" })
 
+    // Save the PDF
     doc.save("استمارة_تنظيم_الأنشطة_الترفيهية.pdf")
   }
 
@@ -343,4 +350,3 @@ export default function ViewForm({ submission }: { submission: FormData }) {
     </div>
   )
 }
-
