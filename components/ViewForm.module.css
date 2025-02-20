@@ -1,0 +1,139 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80%;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .formTitle {
+    text-align: center;
+    font-size: 2em;
+    margin-bottom: 20px;
+  }
+  
+  .formSection {
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  
+  .sectionTitle {
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .formGroup {
+    margin-bottom: 10px;
+  }
+  
+  .formGroup label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  .formGroup input[type="text"],
+  .formGroup input[type="date"],
+  .formGroup input[type="number"],
+  .formGroup input[type="email"],
+  .formGroup textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+  
+  .checkboxGroup,
+  .radioGroup {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  .checkboxLabel,
+  .radioLabel {
+    display: flex;
+    align-items: center;
+  }
+  
+  .checkboxLabel input[type="checkbox"],
+  .radioLabel input[type="radio"] {
+    margin-right: 5px;
+  }
+  
+  .inputGroup {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .capacityGroup {
+    margin-top: 10px;
+  }
+  
+  .capacityGroup h3 {
+    margin-bottom: 5px;
+  }
+  
+  .idInputContainer {
+    display: flex;
+    gap: 5px;
+  }
+  
+  .idDigit {
+    width: 20px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    text-align: center;
+  }
+  
+  .financeTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+  
+  .financeTable th,
+  .financeTable td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: center;
+  }
+  
+  .financeTable th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+  }
+  
+  .tableInput {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    text-align: center;
+  }
+  
+  .submitBtn {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .submitBtn:hover {
+    background-color: #45a049;
+  }
+  
+  
