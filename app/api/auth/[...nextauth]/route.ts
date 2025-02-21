@@ -4,8 +4,17 @@ import { query } from "../../../../lib/db"
 import bcrypt from "bcryptjs"
 import type { NextAuthOptions } from "next-auth"
 
+// Session timeout settings
+const sessionTimeout = 60 * 60 // 1 hour in seconds
+
+
 export const authOptions: NextAuthOptions = {
+  session: {
+    strategy: "jwt",
+    maxAge: sessionTimeout,
+  },
   providers: [
+
     CredentialsProvider({
       name: "Credentials",
       credentials: {
@@ -17,7 +26,14 @@ export const authOptions: NextAuthOptions = {
           throw new Error("Email and password are required")
         }
 
-        const users = await query("SELECT * FROM users WHERE email = ?", [credentials.email]) as any[]
+        let users
+        try {
+          users = await query("SELECT * FROM users WHERE email = ?", [credentials.email]) as any[]
+        } catch (error) {
+          console.error('Database query error:', error)
+          throw new Error('Database connection error. Please try again later.')
+        }
+
 
         if (users.length === 0) {
           throw new Error("No user found with this email")
@@ -57,6 +73,8 @@ export const authOptions: NextAuthOptions = {
     signIn: "/signin",
   },
   secret: process.env.NEXTAUTH_SECRET,
+  debug: process.env.NODE_ENV === 'development',
+
 }
 
 const handler = NextAuth(authOptions)

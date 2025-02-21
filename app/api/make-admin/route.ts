@@ -10,11 +10,14 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Not authorized" }, { status: 403 });
   }
 
-  const { userId } = await req.json();
+  const { userId, isAdmin } = await req.json();
 
   try {
-    await query("UPDATE users SET is_admin = TRUE WHERE id = ?", [userId]);
-    return NextResponse.json({ message: "User is now an admin" }, { status: 200 });
+    await query("UPDATE users SET is_admin = ? WHERE id = ?", [isAdmin, userId]);
+    return NextResponse.json({ 
+      message: isAdmin ? "User is now an admin" : "User is no longer an admin" 
+    }, { status: 200 });
+
   } catch (error) {
     console.error("Error making user admin:", error);
     return NextResponse.json({ error: "Failed to make user an admin" }, { status: 500 });

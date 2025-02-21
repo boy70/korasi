@@ -4,6 +4,8 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { Toaster } from "../components/ui/sonner";
 import Navigation from "../components/Navigation";
+import SessionProviderWrapper from "./SessionProviderWrapper";
+
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -24,10 +26,12 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ar" dir="rtl">
-      <body style={{ margin: 0, fontFamily: 'Arial, sans-serif' }}  className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <Navigation />
-        <main className="p-5">{children}</main>
-        <Toaster />
+      <body style={{ margin: 0, fontFamily: 'Arial, sans-serif' }} className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <SessionProviderWrapper>
+          <Navigation />
+          <main className="p-5">{children}</main>
+          <Toaster />
+        </SessionProviderWrapper>
       </body>
     </html>
   );

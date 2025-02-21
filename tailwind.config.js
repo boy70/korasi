@@ -16,6 +16,16 @@ module.exports = {
   		colors: {
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
+  			table: {
+  				header: 'hsl(210, 40%, 98%)',
+  				row: 'hsl(0, 0%, 100%)',
+  				hover: 'hsl(210, 40%, 96%)',
+  				border: 'hsl(214, 32%, 91%)',
+  				text: 'hsl(222, 47%, 11%)',
+  				accent: 'hsl(221, 83%, 53%)',
+  				success: 'hsl(142, 71%, 45%)',
+  				warning: 'hsl(38, 92%, 50%)'
+  			},
   			card: {
   				DEFAULT: 'hsl(var(--card))',
   				foreground: 'hsl(var(--card-foreground))'
@@ -54,6 +64,20 @@ module.exports = {
   				'4': 'hsl(var(--chart-4))',
   				'5': 'hsl(var(--chart-5))'
   			}
+  		},
+  		keyframes: {
+  			'slide-in': {
+  				'0%': { transform: 'translateY(-10px)', opacity: '0' },
+  				'100%': { transform: 'translateY(0)', opacity: '1' }
+  			},
+  			'fade-in': {
+  				'0%': { opacity: '0' },
+  				'100%': { opacity: '1' }
+  			}
+  		},
+  		animation: {
+  			'slide-in': 'slide-in 0.2s ease-out',
+  			'fade-in': 'fade-in 0.3s ease-in'
   		}
   	}
   },

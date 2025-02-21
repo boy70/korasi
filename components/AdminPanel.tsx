@@ -21,9 +21,12 @@ interface FormSubmission {
 export default function AdminPanel({
   formSubmissions,
 }: {
-  formSubmissions: FormSubmission[]
+  formSubmissions: FormSubmission[] | any
 }) {
-  const [submissions, setSubmissions] = useState(formSubmissions)
+  const [submissions, setSubmissions] = useState(
+    Array.isArray(formSubmissions) ? formSubmissions : []
+  )
+
 
   const updateStatus = async (id: number, newStatus: string) => {
     try {
@@ -97,4 +100,3 @@ export default function AdminPanel({
     </div>
   )
 }
-
